@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 29, 2022 at 06:27 PM
+-- Generation Time: Sep 30, 2022 at 08:55 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -306,6 +306,31 @@ INSERT INTO `investment` (`investment_id`, `user_id`, `ammount`, `date_time`, `r
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `investment_withdraw`
+--
+
+DROP TABLE IF EXISTS `investment_withdraw`;
+CREATE TABLE IF NOT EXISTS `investment_withdraw` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `invesment_id` int(11) NOT NULL,
+  `account_no` varchar(40) NOT NULL,
+  `ifsc_code` varchar(40) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '2' COMMENT '0-rejected 1-success 2-pending',
+  `req_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `investment_withdraw`
+--
+
+INSERT INTO `investment_withdraw` (`id`, `invesment_id`, `account_no`, `ifsc_code`, `status`, `req_time`) VALUES
+(1, 1, '229929299292', '22222222', 2, '2022-09-30 11:54:31'),
+(2, 2, '77789999', 'HAHj88a8', 2, '2022-09-30 11:54:31');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `nominee`
 --
 
@@ -386,6 +411,32 @@ CREATE TABLE IF NOT EXISTS `payment` (
 INSERT INTO `payment` (`payment_id`, `transaction_time`, `purpose`, `payment_mode`, `to_account`, `ammount`, `status`, `transaction_id`) VALUES
 (1, '2022-09-11 02:03:14', 'salary', 'online', '333334444', 20000, 1, '788888yy888uu8'),
 (2, '2022-09-11 02:11:11', 'invesment', 'cheque', '3838383838', 50000, 1, '63663638388383');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payout`
+--
+
+DROP TABLE IF EXISTS `payout`;
+CREATE TABLE IF NOT EXISTS `payout` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_id` int(11) NOT NULL,
+  `ammount` double NOT NULL,
+  `req_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `account_no` varchar(50) NOT NULL,
+  `ifsc_code` varchar(50) NOT NULL,
+  `bank_reference` varchar(100) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '2' COMMENT '0-Reject 2-Pending 1-success ',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `payout`
+--
+
+INSERT INTO `payout` (`id`, `employee_id`, `ammount`, `req_time`, `account_no`, `ifsc_code`, `bank_reference`, `status`) VALUES
+(1, 15, 2000, '2022-09-30 11:33:09', '202020202', '110101010', NULL, 2);
 
 -- --------------------------------------------------------
 
