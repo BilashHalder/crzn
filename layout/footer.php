@@ -4,13 +4,16 @@
         </div>
     </footer>
     <script src="../assets/js/vendors.min.js"></script>
-    <script src="../assets/vendors/data-tables/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js"></script>
-    <script src="../assets/vendors/data-tables/js/dataTables.select.min.js"></script>
     <script src="../assets/vendors/jquery-validation/jquery.validate.min.js"></script>
+    <script src="../assets/js/scripts/form-elements.js"></script>
     <script src="../assets/js/plugins.js"></script>
     <script src="../assets/js/search.js"></script>
-    <script src="../assets/js/custom/custom-script.js"></script>
-    <script src="../assets/js/scripts/data-tables.js"></script>
     <script src="../assets/js/scripts/advance-ui-modals.js"></script>
+    <script src="../assets/js/scripts/cards-extended.js"></script>
+    <script src="../assets/js/scripts/page-users.js"></script>
+    <script src="../assets/js/plugins.js"></script>
+    <script src="../assets/js/search.js"></script>
+   
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
     

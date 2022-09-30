@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <?php
-session_start();
-if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
-header('location:index.php'); 
+// session_start();
+// if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
+// header('location:index.php'); 
 
 require('../layout/header.php');
 

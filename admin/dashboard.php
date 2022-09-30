@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
-<?php require('../layout/header.php'); ?>
+<?php
+// session_start();
+// if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
+// header('location:index.php'); 
+
+require('../layout/header.php');
+
+?>
 
 
 <body class="horizontal-layout page-header-light horizontal-menu preload-transitions 2-columns   " data-open="click" data-menu="horizontal-menu" data-col="2-columns">

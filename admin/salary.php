@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <?php
-session_start();
-if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
-header('location:index.php'); 
+// session_start();
+// if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
+// header('location:index.php'); 
 
 require('../layout/header.php');
 
@@ -38,7 +38,7 @@ require('../layout/header.php');
                     </ul>
                 </div>
             </nav>
-            
+
         </div>
     </header>
 
@@ -54,10 +54,97 @@ require('../layout/header.php');
 
     <div id="main">
         <div class="row">
+            <div class="col s12 m12 l12">
+                <div id="responsive-table" class="card card card-default scrollspy">
+                    <div class="card-content">
+                        <h4 class="card-title center">Manage Salary Information</h4>
+                        <div class="row">
+                            <div class="col s12 m6">
+                                <h5 class="card-title center">Add New Salary Information</h5>
+                                <form action="../service/salary/add.php" method="post">
 
-  
+                                    <div class="row">
+
+                                        <div class="input-field col s6 m6">
+                                            <input type="number" id="fn" name="basic" min=0 required>
+                                            <label for="fn" class="">Basic</label>
+                                        </div>
+                                        <div class="input-field col s6 m6">
+                                            <input type="number" id="fn" name="hra" min=0 required>
+                                            <label for="fn" class="">Hra</label>
+                                        </div>
+                                        <div class="input-field col s6 m6">
+                                            <input type="number" id="fn" name="conveyance" min=0 required>
+                                            <label for="fn" class="">Conveyance</label>
+                                        </div>
+                                        <div class="input-field col s6 m6">
+                                            <input type="number" id="fn" name="medical" min=0 required>
+                                            <label for="fn" class="">Medical</label>
+                                        </div>
+                                        <div class="input-field col s6 m6">
+                                            <input type="number" id="fn" name="special" min=0 required>
+                                            <label for="fn" class="">Special</label>
+                                        </div>
+                                        <div class="input-field col s6 m6">
+                                            <input type="number" id="fn" name="pf" min=0 required>
+                                            <label for="fn" class="">PF</label>
+                                        </div>
+
+
+                                        <div class="input-field col s6 m6">
+                                            <input type="number" id="fn" name="insurance" min=0 required>
+                                            <label for="fn" class="">Insurance</label>
+                                        </div>
+                                        <div class="input-field col s6 m6">
+                                            <input type="number" id="fn" name="tax" min=0 required>
+                                            <label for="fn" class="">Tax</label>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Save
+                                        <i class="material-icons right">save</i>
+                                    </button>
+                                </form>
+
+
+                            </div>
+                            <div class="col s12 m6">
+                                <h5 class="card-title center">Salary List</h5>
+                                <table class="responsive-table">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="id">Name</th>
+                                            <th data-field="name">Item Name</th>
+                                            <th data-field="price">Item Price</th>
+                                            <th data-field="total">Total</th>
+                                            <th data-field="status">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Alvin</td>
+                                            <td>Eclair</td>
+                                            <td>$0.87</td>
+                                            <td>$1.87</td>
+                                            <td>Yes</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Alan</td>
+                                            <td>Jellybean</td>
+                                            <td>$3.76</td>
+                                            <td>$10.87</td>
+                                            <td>No</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <?php require('../layout/footer.php') ?>
 </body>
+
 </html>

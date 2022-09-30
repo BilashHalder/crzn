@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <?php
-session_start();
-if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
-header('location:index.php'); 
+// session_start();
+// if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
+// header('location:index.php'); 
 
 require('../layout/header.php');
 
@@ -54,8 +54,85 @@ require('../layout/header.php');
 
     <div id="main">
         <div class="row">
-
-  
+            <div class="col s12">
+                        <div class="card">
+                        <div class="card-content">
+                        <h4 class="card-title center">Manage Holidays</h4>
+                               
+                        <div class="row">
+                                    <div class="col s12 m4 l6">
+                                    <div class="card-content">
+                                        <div class="card-title">
+                                            <div class="row">
+                                                <div class="col s12 m6 l10">
+                                                    <h4 class="card-title center">Add New Holidays</h4>
+                                                </div>
+                                                <div class="col s12 m6 l2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="html-view-validations">
+                                            <form class="formValidate0" id="formValidate0" method="get">
+                                                <div class="row">
+                                                    <div class="input-field col s12 m12">
+                                                        <label for="title" class="">Select Holiday *</label>
+                                                        <input class="validate" required="" id="title" name="title" type="date">
+                                                    </div>
+                                                    <div class="input-field col s12">
+                                                        <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Save
+                                                            <i class="material-icons right">save</i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col s12 m8 l6">
+                                    <div id="responsive-table" class="card card card-default scrollspy">
+                                    <div class="card-content">
+                                        <h4 class="card-title center"> Designation List</h4>
+                                        <div class="row">
+                                            <div class="col s12">
+                                            </div>
+                                            <div class="col s12">
+                                                <table class="responsive-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th data-field="id">Name</th>
+                                                            <th data-field="name">Item Name</th>
+                                                            <th data-field="price">Item Price</th>
+                                                            <th data-field="total">Total</th>
+                                                            <th data-field="status">Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Alvin</td>
+                                                            <td>Eclair</td>
+                                                            <td>$0.87</td>
+                                                            <td>$1.87</td>
+                                                            <td>Yes</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Alan</td>
+                                                            <td>Jellybean</td>
+                                                            <td>$3.76</td>
+                                                            <td>$10.87</td>
+                                                            <td>No</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    </div>
+                                </div>
+                           
+                        </div>
+                    </div>
+            </div>
         </div>
     </div>
     <?php require('../layout/footer.php') ?>
