@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <?php
-// session_start();
+session_start();
 // if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
 // header('location:index.php'); 
 require('../config/dbconfig.php');
@@ -94,9 +94,7 @@ $count=mysqli_num_rows($res);
                                                 <td><?php echo $rec['phone']?></td>
                                                 <td><?php echo $rec['email']?></td>
                                                 <td><?php if($rec['status']==1) echo "Active"; else "Blocked";?></td>
-                                                <td>
-                                                    <a href="empinfo.php?id=<?php echo $rec['customer_id']?>">View </a>
-                                                    </td>
+                                                <td> <a href="customerinfo.php?id=<?php echo $rec['customer_id']?>">View </a> </td>
                                             </tr>
 
                                             <?php

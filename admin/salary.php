@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <?php
-// session_start();
+session_start();
 // if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
 // header('location:index.php'); 
 
 require('../layout/header.php');
-
+require('../config/dbconfig.php');
+function calculateSalary($salary){
+    return(($salary['basic']+$salary['hra']+$salary['conveyance']+$salary['medical']+$salary['special'])-($salary['pf']+$salary['insurance']+$salary['tax']));
+}
 ?>
 
 
@@ -61,7 +64,7 @@ require('../layout/header.php');
                         <div class="row">
                             <div class="col s12 m6">
                                 <h5 class="card-title center">Add New Salary Information</h5>
-                                <form action="../service/salary/add.php" method="post">
+                                <form action="../services/db/addsalary.php" method="post">
 
                                     <div class="row">
 
@@ -110,33 +113,31 @@ require('../layout/header.php');
                             </div>
                             <div class="col s12 m6">
                                 <h5 class="card-title center">Salary List</h5>
-                                <table class="responsive-table">
-                                    <thead>
-                                        <tr>
-                                            <th data-field="id">Name</th>
-                                            <th data-field="name">Item Name</th>
-                                            <th data-field="price">Item Price</th>
-                                            <th data-field="total">Total</th>
-                                            <th data-field="status">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Alvin</td>
-                                            <td>Eclair</td>
-                                            <td>$0.87</td>
-                                            <td>$1.87</td>
-                                            <td>Yes</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Alan</td>
-                                            <td>Jellybean</td>
-                                            <td>$3.76</td>
-                                            <td>$10.87</td>
-                                            <td>No</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <table class="bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th data-field="id">Salary Id</th>
+                                                            <th data-field="name">Total Salary</th>
+                                                            <th>Edit</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <?php 
+                                                         $qur="SELECT * FROM `salary`";
+                                                         $allsalary = $conn->query($qur);
+                                                        
+                                                         for($i=0;$i< mysqli_num_rows($allsalary);$i++){
+                                                            $salary=mysqli_fetch_array($allsalary);    
+                                                    ?>
+
+                                                        <tr>
+                                                            <td><?php echo $salary['salary_id'];?></td>
+                                                            <td><?php echo calculateSalary($salary);?></td>
+                                                            <td><a  type="submit" name="action" href="?id=<?php echo  $salary['salary_id']; ?>"> <i class="material-icons right">edit</i></a></td>
+                                                        </tr>
+                                                        <?php }?>
+                                                    </tbody>
+                                                </table>
                             </div>
                         </div>
                     </div>

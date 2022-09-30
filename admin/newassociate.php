@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <?php
-// session_start();
+session_start();
 // if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
 // header('location:index.php'); 
 require('../config/dbconfig.php');
@@ -59,7 +59,8 @@ require('../layout/header.php');
                     <div class="section">
                         <div class="card card card-default scrollspy ">
                             <div class="card-content">
-                                <form class="formValidate" action="../service/associate/add.php" id="customerForm"  enctype="multipart/form-data"  method="POST" >
+                                <h5 class="center">Add New Associate</h5>
+                                <form class="formValidate" action="../services/db/addassociate.php" id="customerForm"  enctype="multipart/form-data"  method="POST" >
                                     <div class="row">
                                         <div class="input-field col s6 m4  ">
                                             <label for="fname">Full Name*</label>
@@ -156,6 +157,10 @@ require('../layout/header.php');
                                         </div>
 
                                         <div class="input-field col s12">
+                                        <?php if(isset($_SESSION['asserr'])){?>
+                                             <p style="text-align: center;color:red"><?php echo $_SESSION['asserr']; ?></p>
+                                             <?php unset($_SESSION['asserr']);} ?>
+
                                             <button class="btn waves-effect waves-light right green" type="submit" name="action">Save
                                                 <i class="material-icons right">save</i>
                                             </button>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <?php
-// session_start();
+session_start();
 // if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
 // header('location:index.php'); 
 
@@ -11,6 +11,7 @@ require('../layout/header.php');
 $qur="SELECT * FROM `associate`";
 $res=$conn->query($qur);
 $count=mysqli_num_rows($res);
+
 
 ?>
 
@@ -58,121 +59,65 @@ $count=mysqli_num_rows($res);
     </aside>
 
   
-     <div id="main">
+    <div id="main">
         <div class="row">
-            <div class="col s12">
-                <div class="container">
-                    <div class="section">
-                        <div class="card card card-default scrollspy ">
-                            <div class="card-content">
-                                <form class="formValidate" action="../service/associate/add.php" id="customerForm"  enctype="multipart/form-data"  method="POST" >
-                                    <div class="row">
-                                        <div class="input-field col s6 m4  ">
-                                            <label for="fname">Full Name*</label>
-                                            <input id="fname" name="fname" type="text" data-error=".errorTxt1" required>
-                                            <small class="errorTxt1"></small>
-                                        </div>
-                                        <div class="input-field col s6 m4">
-                                            <label for="phone">Phone No*</label>
-                                            <input id="phone" name="phone" type="number" min=0 data-error=".errorTxt2" required>
-                                            <small class="errorTxt2"></small>
-                                        </div>
+            <div class="col s12 m12 l12">
+                <div id="button-trigger" class="card card card-default scrollspy">
+                    <div class="card-content">
+                        <h4 class="card-title center">Employee List</h4>
+                        <div class="row">
+                            <div class="col s12">
+                            </div>
+                            <div class="col s12">
+                                <div id="data-table-simple_wrapper" class="dataTables_wrapper">
+                                   
+                                    <table id="mytable" class="display dataTable dtr-inline responsive-table" role="grid" aria-describedby="data-table-simple_info" style="width: 1160px;">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" style="width: 189px;" aria-sort="ascending" aria-label="Id: activate to sort column descending">Associate Id</th>
+                                                <th class="sorting" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" style="width: 288px;" aria-label="Name: activate to sort column ascending">Full Name</th>
+                                                <th class="sorting" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" style="width: 149px;" aria-label="Phone: activate to sort column ascending">Phone No</th>
+                                                <th class="sorting" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" style="width: 112px;" aria-label="Email: activate to sort column ascending">Email Id</th>
+                                                <th class="sorting" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" style="width: 128px;" aria-label="Status: activate to sort column ascending">Status</th>
+                                                <th class="sorting" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" style="width: 126px;" aria-label="Salary: activate to sort column ascending">View</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            if($count==0)
+                                            echo "<h3>No Records Found</h3>";
+                                            else{
+                                                for($i=0;$i<$count;$i++){
+                                                    $rec=mysqli_fetch_array($res);
+                                                        ?>
 
-                                        <div class="input-field col s6 m4">
-                                            <label for="email">E-Mail *</label>
-                                            <input id="email" type="email" name="email" data-error=".errorTxt3" required>
-                                            <small class="errorTxt3"></small>
-                                        </div>
+                                                 <tr role="row" class="<?php if($i%2) echo "odd";else echo "even"; ?>">
+                                                <td tabindex="0" class="sorting_1"><?php echo $rec['associate_id']?></td>
+                                                <td><?php echo $rec['name']?></td>
+                                                <td><?php echo $rec['phone']?></td>
+                                                <td><?php echo $rec['email']?></td>
+                                                <td><?php if($rec['status']==1) echo "Active"; else "Blocked";?></td>
+                                                <td>
+                                                    <a href="associateinfo.php?id=<?php echo $rec['associate_id']?>">View </a>
+                                                    </td>
+                                            </tr>
 
-                                        <div class="input-field col s6 m4">
-                                            <label for="commission_rate">Commission Rate</label>
-                                            <input id="commission_rate" name="commission_rate" type="number" min=0 data-error=".errorTxt4" required>
-                                            <small class="errorTxt4"></small>
-                                        </div>
+                                            <?php
 
-
-                                       
-
-                                        <div class="col s6 m4">
-                                            <label for="gender">Gender *</label>
-                                            <div class="input-field">
-                                                <select class="error" id="gender" name="gender" data-error=".errorTxt7" required>
-                                                    <option value="">Select</option>
-                                                    <option value="1">Male</option>
-                                                    <option value="2">Female</option>
-                                                    <option value="3">Others</option>
-                                                </select>
-                                                <small class="errorTxt7"></small>
-                                            </div>
-                                        </div>
-                                    <?php 
-                                    require('../config/dbconfig.php');
-                                    $sqlemp="SELECT * FROM employee where status=1";
-                                    $allemp=$conn->query($sqlemp);
+                                                }
+                                            } 
+                                            
+                                            
+                                            ?>
+                                        </tbody>
+                                    </table>
 
                                     
-                                    ?>
-                                         <div class="col s6 m3">
-                                            <label for="employee_id">Report To *</label>
-                                            <div class="input-field">
-                                                <select class="error" id="employee_id" name="employee_id" data-error=".errorTxt7" required>
-                                                <?php 
-                                                if(mysqli_num_rows($allemp)<1)
-                                                {
-                                                    ?>
-                                                    <option>Select</option>
-                                                    <option value='0'>Admin</option>
-                                                    <?php
-                                                }
-                                                else{
-                                                    ?>
-                                                    <option>Select</option>
-                                                    <option value='0'>Admin</option>
-                                                    <?php
-                                                    for($i=0;$i<mysqli_num_rows($allemp);$i++){
-                                                        $temp=mysqli_fetch_array($allemp)
-                                                ?>    
-                                                    
-                                                    <option value="<?php echo $temp['employee_id'];?>"><?php echo $temp['name'];?></option>
-                                                    <?php
-                                                } }?>
-                                                </select>
-                                                <small class="errorTxt7"></small>
-                                            </div>
-                                        </div>
-                                        <div class="col m4 s6 file-field input-field">
-                                                    <div class="btn float-right">
-                                                        <span>Image</span>
-                                                        <input type="file" name="image"  accept="image/*">
-                                                    </div>
-                                                    <div class="file-path-wrapper">
-                                                        <input class="file-path validate" type="text">
-                                                    </div>
-                                                </div>
-                                         <div class="input-field col s6 m4">
-                                            <label for="pass">Password *</label>
-                                            <input id="pass" type="password" name="pass" data-error=".errorTxt5" required>
-                                            <small class="errorTxt5"></small>
-                                        </div>
-
-                                        <div class="input-field col s6 m4">
-                                            <label for="cpassword">Confirm Password *</label>
-                                            <input id="cpassword" type="password" name="cpassword" data-error=".errorTxt6" required>
-                                            <small class="errorTxt6"></small>
-                                        </div>
-
-                                        <div class="input-field col s12">
-                                            <button class="btn waves-effect waves-light right green" type="submit" name="action">Save
-                                                <i class="material-icons right">save</i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
+                                     </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="content-overlay"></div>
             </div>
         </div>
     </div>

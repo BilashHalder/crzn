@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <?php
-// session_start();
+session_start();
 // if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
 // header('location:index.php'); 
-
 require('../layout/header.php');
-
 ?>
 
 
@@ -17,7 +15,7 @@ require('../layout/header.php');
                 <div class="nav-wrapper">
                     <ul class="left">
                         <li>
-                            <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="index.html"><img src="../assets/images/logo/materialize-logo.png" alt="materialize logo"><span class="logo-text hide-on-med-and-down">Creazione CRM</span></a></h1>
+                            <h1 class="logo-wrapper"><a class="brand-logo darken-1" href=""><img src="../assets/images/logo/materialize-logo.png" alt="materialize logo"><span class="logo-text hide-on-med-and-down">Creazione CRM</span></a></h1>
                         </li>
                     </ul>
                     <ul class="navbar-list right">
@@ -60,8 +58,8 @@ require('../layout/header.php');
                         <div class="card card card-default scrollspy ">
                             <div class="card-content">
                                 
-                        <h5 class="center">Add New Customer</h5>
-                                <form class="formValidate" action="../service/customer/add.php" id="customerForm"  enctype="multipart/form-data"  method="POST" >
+                              <h5 class="center">Add New Customer</h5>
+                                <form class="formValidate" action="../services/db/addcustomer.php" id="customerForm"  enctype="multipart/form-data"  method="POST" >
                                     <div class="row">
                                         <div class="input-field col s6 m4  ">
                                             <label for="fname">Full Name*</label>
@@ -91,10 +89,6 @@ require('../layout/header.php');
                                             <small class="errorTxt3"></small>
                                         </div>
 
-
-                                       
-                                    
-
                                         <div class="input-field col s6 m4">
                                             <label for="pass">Password *</label>
                                             <input id="pass" type="password" name="pass" data-error=".errorTxt5" required>
@@ -122,8 +116,11 @@ require('../layout/header.php');
                                                         <input class="file-path validate" type="text">
                                                     </div>
                                                 </div>
-
+                                       
                                         <div class="input-field col s12">
+                                            <?php if(isset($_SESSION['cuserr'])){?>
+                                             <p style="text-align: center;color:red"><?php echo $_SESSION['cuserr']; ?></p>
+                                             <?php unset($_SESSION['cuserr']);} ?>
                                             <button class="btn waves-effect waves-light right green" type="submit" name="action">Save
                                                 <i class="material-icons right">save</i>
                                             </button>
