@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <?php
-// session_start();
+session_start();
 // if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
 // header('location:index.php'); 
 
 require('../layout/header.php');
+require('../config/dbconfig.php');
 
 ?>
 
@@ -38,7 +39,7 @@ require('../layout/header.php');
                     </ul>
                 </div>
             </nav>
-            
+
         </div>
     </header>
 
@@ -54,115 +55,121 @@ require('../layout/header.php');
 
     <div id="main">
         <div class="row">
-            <div class="col s12">
-                        <div class="card">
-                        <div class="card-content">
-                        <h4 class="card-title center">Manage Designation</h4>
-                               
-                        <div id="main">
-    <div class="row">
-                            <div class="col s12 m6 l6">
-                                <div id="basic-form" class="card card card-default scrollspy">
-                                    <div class="card-content">
-                                        
+            <div class="col s12 m12 l12">
+                <div id="responsive-table" class="card card card-default scrollspy">
+                    <div class="card-content">
+                        <h4 class="card-title center">Manage Designation Information</h4>
+                        <div class="row">
 
-                                        <?php if(!isset($_GET['id'])) {?>
-                                            <h4 class="card-title center">Add Designation</h4>
-                                        <form action="../service/adddesgination.php" method="post">
-                                            <div class="row">
-                                                <div class="input-field col s12">
-                                                    <input type="text" id="fn" name="title" required>
-                                                    <label for="fn" class="">Title</label>
-                                                </div>
-                                            </div>
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Save
-                                                            <i class="material-icons right">save</i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <?php
-                                    }
-                                    else
-                                    {
-                                        ?>
-                                        <h4 class="card-title center">Edit Designation</h4>
-                                        <form action="../service/editDesignation.php" method="post">
-                                            <div class="row">
-                                                <div class="input-field col s12">
-                                                   
-                                                    <input type="text" id="fn" name="title" value="<?php echo mysqli_fetch_array($res)[0];?>" required>
-                                                    <label for="fn" class="">Title</label>
-                                                </div>
+                            <?php
+                            if (isset($_GET['id'])) {
+                                $id = $_GET['id'];
+                                $qur = "SELECT * FROM `designation` WHERE `designation_id`=$id";
+                                $res = $conn->query($qur);
+                                $res = mysqli_fetch_array($res);
+                            ?>
 
-                                                <input type="text" id="fn" name="id" value="<?php echo $_GET['id']?>" hidden>
-                                            </div>
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Save
-                                                            <i class="material-icons right">save</i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <?php
-                                    }?>
 
-                                    </div>
-                                </div>
 
-                                <div class="col s12 m6 l6">
-                                <div id="placeholder" class="card card card-default scrollspy">
-                                    <div class="card-content">
-                                        <h4 class="card-title center">Designation List</h4>
-                                        <div class="card-content">
+                                <div class="col s12 m6">
+                                    <h5 class="card-title center">Update Designation Information</h5>
+
+
+                                    <form action="../services/db/updatedesg.php" method="post">
+
                                         <div class="row">
-                                            <div class="col s12">
-                                            </div>
-                                            <div class="col s12">
-                                                <table class="bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th data-field="id">Designation Id</th>
-                                                            <th data-field="name">Title</th>
-                                                            <th>Edit</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <?php 
-                                                        
-                                                         for($i=0;$i< mysqli_num_rows($data);$i++){
-                                                            $desg=mysqli_fetch_array($data);    
-                                                    ?>
 
-                                                        <tr>
-                                                            <td><?php echo $desg['designation_id']?></td>
-                                                            <td><?php echo $desg['title']?></td>
-                                                            <td><a  type="submit" name="action" href="./designations.php?id=<?php echo  $desg['designation_id']; ?>"> <i class="material-icons right">edit</i></a></td>
-                                                        </tr>
-                                                        <?php }?>
-                                                    </tbody>
-                                                </table>
+                                            <div class="input-field col m12">
+                                                <input type="text" id="fn" name="title" min=0 value='<?php echo $res['title']; ?>' required>
+                                                <label for="fn" class="">Title</label>
                                             </div>
                                         </div>
-                                    </div>
-                                    </div>
+                                        <input type="number" id="designation_id" name="designation_id" value=<?php echo $res['designation_id']; ?> hidden>
+                                        <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Save
+                                            <i class="material-icons right">save</i>
+                                        </button>
+                                    </form>
+
+
                                 </div>
-                            </div> 
+
+                            <?php
+                            } else {
+
+                            ?>
+
+
+                                <div class="col s12 m6">
+                                    <h5 class="card-title center">Add New Designation</h5>
+
+
+                                    <form action="../services/db/adddesg.php" method="post">
+
+                                    <div class="row">
+                                    <div class="input-field col s12 m12">
+    <input type="text" id="fn" name="title" required>
+    <label for="fn" class="">Title</label>
+</div>
+
+
+<button class="btn cyan waves-effect waves-light right" type="submit" name="action">Save
+<i class="material-icons right">save</i>
+</button>
+
+                                    </div>
+                                    </form>
+
+
+                                </div>
+
+
+                            <?php
+                            }
+                            ?>
+
+
+
+
+
+                            <div class="col s12 m6">
+                                <h5 class="card-title center">Designation List</h5>
+                                <table class="bordered">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="id">Designation Id</th>
+                                            <th data-field="name">Title</th>
+                                            <th>Edit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $qur = "SELECT * FROM `designation`";
+                                        $alldesg = $conn->query($qur);
+
+                                        for ($i = 0; $i < mysqli_num_rows($alldesg); $i++) {
+                                            $desg = mysqli_fetch_array($alldesg);
+                                        ?>
+
+                                            <tr>
+                                                <td><?php echo $desg['designation_id']; ?></td>
+                                                <td><?php echo $desg['title']; ?></td>
+                                                <td><a type="submit" name="action" href="?id=<?php echo  $desg['designation_id']; ?>"> <i class="material-icons right">edit</i></a></td>
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
                             </div>
-                             
-                        </div>
-    </div>
-                           
+
+
+
+                            
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
     <?php require('../layout/footer.php') ?>
 </body>
+
 </html>

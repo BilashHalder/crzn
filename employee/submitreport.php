@@ -2,10 +2,10 @@
 <html class="loading" lang="en" data-textdirection="ltr">
 
 <?php
-// session_start();
-// if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
-// header('location:index.php'); 
-
+session_start();
+if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
+header('location:index.php'); 
+require('../config/dbconfig.php');
 require('../layout/header.php');
 
 ?>
@@ -13,23 +13,7 @@ require('../layout/header.php');
 <body class="horizontal-layout page-header-light horizontal-menu preload-transitions 2-columns   " data-open="click" data-menu="horizontal-menu" data-col="2-columns">
     <header class="page-topbar" id="header">
         <div class="navbar navbar-fixed">
-            <nav class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-dark gradient-45deg-light-blue-cyan">
-                <div class="nav-wrapper">
-                    <ul class="left">
-                        <li>
-                            <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="index.html"><img src="../assets/images/logo/materialize-logo.png" alt="materialize logo"><span class="logo-text hide-on-med-and-down">Materialize</span></a></h1>
-                        </li>
-                    </ul>
-                    <ul class="navbar-list right">
-                        <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><img src="../assets/images/avatar/avatar-7.png" alt="avatar"><i></i></span></a></li>
-                    </ul>
-
-                    <ul class="dropdown-content" id="profile-dropdown">
-                        <li><a class="grey-text text-darken-1" href="user-profile-page.html"><i class="material-icons">person_outline</i> Profile</a></li>
-                        <li><a class="grey-text text-darken-1" href="user-login.html"><i class="material-icons">keyboard_tab</i> Logout</a></li>
-                    </ul>
-                </div>
-            </nav>
+        <?php require('./topnav.php');?>
 
             <nav class="white hide-on-med-and-down" id="horizontal-nav">
                 <div class="nav-wrapper">
@@ -68,32 +52,50 @@ require('../layout/header.php');
                                     </div>
                                 </div>
                             </div>
+
+<?php 
+$id=$_SESSION['id'];
+$qur="SELECT * FROM `work_report` WHERE `report_date`=CURRENT_DATE() and employee_id=$id";
+$res=$conn->query($qur);
+$data=mysqli_fetch_array($res);
+if($data['status']==2){
+
+
+?>
+
+
                             <div id="html-view-validations">
-                                <form class="formValidate0" id="formValidate0" method="get">
+                                <form class="formValidate0" method="post" enctype="multipart/form-data" action="../services/employee/report.php">
                                     <div class="row">
                                         <div class="input-field col s12 m4">
                                             <label for="uname0" class="">Report Date</label>
-                                            <input class="validate " required="" id="uname0" name="uname" type="text" disabled>
+                                            <input class="validate " required="" id="uname0"  type="text" value="<?php echo $data['report_date'];?>"disabled>
                                         </div>
                                         <div class="input-field col s12 m4">
                                             <label for="cemail0" class="">Login Time</label>
-                                            <input class="validate " required="" id="cemail0" type="email" name="cemail0" disabled>
+                                            <input class="validate " required="" id="cemail0" type="email" name="cemail0"   value="<?php echo $data['start_time'];?>" disabled>
                                         </div>
+                                        <?php 
+                                        $qur="SELECT `report_to` FROM `employee_info` WHERE `employee_id`=$id";
+                                        $rp=$conn->query($qur);
+                                        $temp=mysqli_fetch_array($rp);
+                                        
+                                        ?>
                                         <div class="input-field col s12 m4">
                                             <label for="password0">Report To</label>
-                                            <input class="validate" required="" id="password0" type="password" name="password0" disabled>
+                                            <input class="validate" required="" id="password0" type="text" name="password0" disabled value="<?php if($temp['report_to']==0) echo "Admin";else  echo "CRZNEMP000".$temp['report_to']; ?>">
                                         </div>
-                                        <div class="input-field col s12 m6">
-                                            <label for="curl0">Report Id : </label>
-                                            <input class="validate" required="" id="curl0" type="text" name="curl0" disabled>
-                                        </div>
-                                        <div class="input-field col s12 m6">
+
+
+                                        <input c required="" id="curl0" type="text" name="report_id"  hidden value="<?php echo $data['report_id'];?>">
+                                        <input c required="" id="curl0" type="text" name="report_to"  hidden value="<?php echo $temp['report_to'];?>">
+                                        <div class="input-field col s12 m4">
                                             <div id="view-file-input" class="active">
 
                                                 <div class="file-field input-field">
                                                     <div class="btn">
                                                         <span>File</span>
-                                                        <input type="file">
+                                                        <input type="file" name="docs">
                                                     </div>
                                                     <div class="file-path-wrapper">
                                                         <input class="file-path validate" type="text">
@@ -102,8 +104,8 @@ require('../layout/header.php');
                                             </div>
                                         </div>
 
-                                        <div class="input-field col s12 ">
-                                            <textarea id="ccomment0" name="ccomment0" class="materialize-textarea validate" required=""></textarea>
+                                        <div class="input-field col s8 ">
+                                            <textarea id="ccomment0" name="ccomment0" class="materialize-textarea validate" required="" name="comment"></textarea>
                                             <label for="ccomment0">Your comment *</label>
                                         </div>
                                         <div class="input-field col s12">
@@ -114,6 +116,13 @@ require('../layout/header.php');
                                     </div>
                                 </form>
                             </div>
+
+                            <?php }
+                            else 
+                            {
+                                echo "<h4 class=' green-text'>Your Report  Submitted..</h4>";
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>

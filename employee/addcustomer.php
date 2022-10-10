@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <?php
-// session_start();
-// if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
-// header('location:index.php'); 
-
+session_start();
+if (!(isset($_SESSION['id']) && isset($_SESSION['type'])))
+    header('location:index.php');
+require('../config/dbconfig.php');
 require('../layout/header.php');
+$id=$_SESSION['id'];
 
 ?>
 
@@ -14,23 +15,7 @@ require('../layout/header.php');
 <body class="horizontal-layout page-header-light horizontal-menu preload-transitions 2-columns   " data-open="click" data-menu="horizontal-menu" data-col="2-columns">
     <header class="page-topbar" id="header">
         <div class="navbar navbar-fixed">
-            <nav class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-dark gradient-45deg-light-blue-cyan">
-                <div class="nav-wrapper">
-                    <ul class="left">
-                        <li>
-                            <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="index.html"><img src="../assets/images/logo/materialize-logo.png" alt="materialize logo"><span class="logo-text hide-on-med-and-down">Materialize</span></a></h1>
-                        </li>
-                    </ul>
-                    <ul class="navbar-list right">
-                         <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><img src="../assets/images/avatar/avatar-7.png" alt="avatar"><i></i></span></a></li>
-                    </ul>
-                   
-                    <ul class="dropdown-content" id="profile-dropdown">
-                        <li><a class="grey-text text-darken-1" href="user-profile-page.html"><i class="material-icons">person_outline</i> Profile</a></li>
-                        <li><a class="grey-text text-darken-1" href="user-login.html"><i class="material-icons">keyboard_tab</i> Logout</a></li>
-                    </ul>
-                </div> 
-            </nav>
+           <?php require('./topnav.php');?>
 
             <nav class="white hide-on-med-and-down" id="horizontal-nav">
                 <div class="nav-wrapper">
@@ -55,60 +40,76 @@ require('../layout/header.php');
 
     <div id="main">
         <div class="row">
-        <div class="row">
-                <div class="col s12">
-                    <div id="html-validations" class="card card-tabs">
-                        <div class="card-content">
-                            <div class="card-title">
-                                <div class="row">
-                                    <div class="col s12 m6 l10">
-                                        <h4 class="card-title center">Enter Your Work Report Details</h4>
-                                    </div>
-                                    <div class="col s12 m6 l2">
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="html-view-validations">
-                                <form class="formValidate0" id="formValidate0" method="get">
+        <div class="col s12">
+                <div class="container">
+                    <div class="section">
+                        <div class="card card card-default scrollspy ">
+                            <div class="card-content">
+                                
+                              <h5 class="center">Add New Customer</h5>
+                                <form class="formValidate" action="../services/employee/addcustomer.php" id="customerForm"  enctype="multipart/form-data"  method="POST" >
                                     <div class="row">
-                                        <div class="input-field col s12 m4">
-                                            <label for="uname0" class="">Report Date</label>
-                                            <input class="validate " required="" id="uname0" name="uname" type="text" disabled>
+                                        <div class="input-field col s6 m4  ">
+                                            <label for="fname">Full Name*</label>
+                                            <input id="fname" name="fname" type="text" data-error=".errorTxt1" required>
+                                            <small class="errorTxt1"></small>
                                         </div>
-                                        <div class="input-field col s12 m4">
-                                            <label for="cemail0" class="">Login Time</label>
-                                            <input class="validate " required="" id="cemail0" type="email" name="cemail0" disabled>
+                                        <div class="input-field col s6 m4">
+                                            <label for="phone">Phone No*</label>
+                                            <input id="phone" name="phone" type="number" min=0 data-error=".errorTxt2" required>
+                                            <small class="errorTxt2"></small>
                                         </div>
-                                        <div class="input-field col s12 m4">
-                                            <label for="password0">Report To</label>
-                                            <input class="validate" required="" id="password0" type="password" name="password0" disabled>
+                                        <div class="col s6 m4">
+                                            <label for="gender">Gender *</label>
+                                            <div class="input-field">
+                                                <select class="error" id="gender" name="gender" data-error=".errorTxt7" required>
+                                                    <option value="">Select</option>
+                                                    <option value="1">Male</option>
+                                                    <option value="2">Female</option>
+                                                    <option value="3">Others</option>
+                                                </select>
+                                                <small class="errorTxt7"></small>
+                                            </div>
                                         </div>
-                                        <div class="input-field col s12 m6">
-                                            <label for="curl0">Report Id : </label>
-                                            <input class="validate" required="" id="curl0" type="text" name="curl0" disabled>
+                                        <div class="input-field col s6 m4">
+                                            <label for="email">E-Mail *</label>
+                                            <input id="email" type="email" name="email" data-error=".errorTxt3" required>
+                                            <small class="errorTxt3"></small>
                                         </div>
-                                        <div class="input-field col s12 m6">
-                                            <div id="view-file-input" class="active">
 
-                                                <div class="file-field input-field">
-                                                    <div class="btn">
-                                                        <span>File</span>
-                                                        <input type="file">
+                                        <div class="input-field col s6 m4">
+                                            <label for="pass">Password *</label>
+                                            <input id="pass" type="password" name="pass" data-error=".errorTxt5" required>
+                                            <small class="errorTxt5"></small>
+                                        </div>
+
+                                        <div class="input-field col s6 m4">
+                                            <label for="cpassword">Confirm Password *</label>
+                                            <input id="cpassword" type="password" name="cpassword" data-error=".errorTxt6" required>
+                                            <small class="errorTxt6"></small>
+                                        </div>
+
+                                        <div class="input-field col s6 m4 " hidden>
+                                            <input id="ref_code" name="ref_code" type="text" data-error=".errorTxt4" value="CRZNEMP00<?php echo $id;?>">
+                                            <small class="errorTxt4"></small>
+                                        </div>
+
+                                        <div class="col m4 s6 file-field input-field">
+                                                    <div class="btn float-right">
+                                                        <span>Image</span>
+                                                        <input type="file" name="image"  accept="image/*">
                                                     </div>
                                                     <div class="file-path-wrapper">
                                                         <input class="file-path validate" type="text">
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="input-field col s12 ">
-                                            <textarea id="ccomment0" name="ccomment0" class="materialize-textarea validate" required=""></textarea>
-                                            <label for="ccomment0">Your comment *</label>
-                                        </div>
+                                       
                                         <div class="input-field col s12">
-                                            <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
-                                                <i class="material-icons right">send</i>
+                                            <?php if(isset($_SESSION['cuserr'])){?>
+                                             <p style="text-align: center;color:red"><?php echo $_SESSION['cuserr']; ?></p>
+                                             <?php unset($_SESSION['cuserr']);} ?>
+                                            <button class="btn waves-effect waves-light right green" type="submit" name="action">Save
+                                                <i class="material-icons right">save</i>
                                             </button>
                                         </div>
                                     </div>
@@ -117,8 +118,8 @@ require('../layout/header.php');
                         </div>
                     </div>
                 </div>
+                <div class="content-overlay"></div>
             </div>
-        
         </div>
     </div>
 <?php require('../layout/footer.php')?>

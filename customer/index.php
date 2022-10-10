@@ -36,7 +36,7 @@ if(isset( $_SESSION['id']))
                         <form class="login-form" method="post" action="../services/customer/verify.php" >
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <h5 class="ml-4 center">Employee Log In</h5>
+                                    <h5 class="ml-4 center">Customer Log In</h5>
                                 </div>
                             </div>
                             <div class="row margin">

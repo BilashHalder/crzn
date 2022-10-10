@@ -2,10 +2,27 @@
 <html class="loading" lang="en" data-textdirection="ltr">
 <?php
 session_start();
+
 if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
 header('location:index.php'); 
 
+require('../config/dbconfig.php');
 require('../layout/header.php');
+
+$id=$_SESSION['id'];
+$sql="SELECT * FROM `nominee` WHERE `user_id`=$id and `user_type`=1";
+$sql2="SELECT * FROM `bank_account` WHERE `user_id`=$id and `user_type`=1";
+$sql3="SELECT * FROM `customer` WHERE `customer_id`=$id";
+
+
+$allnominee=$conn->query($sql);
+$allaccount=$conn->query($sql2);
+$custifo=$conn->query($sql3);
+
+
+$coutnm=mysqli_num_rows($allnominee);
+$coutacc=mysqli_num_rows($allaccount);
+$custifo=mysqli_fetch_array($custifo);
 
 ?>
 
@@ -14,23 +31,7 @@ require('../layout/header.php');
 <body class="horizontal-layout page-header-light horizontal-menu preload-transitions 2-columns   " data-open="click" data-menu="horizontal-menu" data-col="2-columns">
     <header class="page-topbar" id="header">
         <div class="navbar navbar-fixed">
-            <nav class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-dark gradient-45deg-light-blue-cyan">
-                <div class="nav-wrapper">
-                    <ul class="left">
-                        <li>
-                            <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="index.html"><img src="../assets/images/logo/materialize-logo.png" alt="materialize logo"><span class="logo-text hide-on-med-and-down">Materialize</span></a></h1>
-                        </li>
-                    </ul>
-                    <ul class="navbar-list right">
-                         <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><img src="../assets/images/avatar/avatar-7.png" alt="avatar"><i></i></span></a></li>
-                    </ul>
-                   
-                    <ul class="dropdown-content" id="profile-dropdown">
-                        <li><a class="grey-text text-darken-1" href="user-profile-page.html"><i class="material-icons">person_outline</i> Profile</a></li>
-                        <li><a class="grey-text text-darken-1" href="user-login.html"><i class="material-icons">keyboard_tab</i> Logout</a></li>
-                    </ul>
-                </div> 
-            </nav>
+        <?php require('./topnav.php'); ?>
 
             <nav class="white hide-on-med-and-down" id="horizontal-nav">
                 <div class="nav-wrapper">
@@ -55,8 +56,106 @@ require('../layout/header.php');
 
     <div id="main">
         <div class="row">
+            <div class="col s12">
+                <div class="container">
+                    <div class="section">
 
-        
+                        <div class="card card card-default scrollspy ">
+                            <div class="card-content">
+                               <p class="center"> Add New Invesment </p>
+                            <form  action="../services/db/addinvesment.php"   method="get" >
+                                   
+                            
+                            <div class="row">
+                                        <div class="col s6 m4">
+                                            <label for="account_no">Account No *</label>
+                                            <div class="input-field">
+                                                <select id="account_no" name="account_no"  required>
+                                                  
+                                                <?php 
+                                                if ($coutacc==0)
+                                                    {
+                                                        echo "<option >Please Add Bank Account</option>";
+                                                    }
+                                                    else{
+                                                       for($i=0;$i<$coutacc;$i++)
+                                                       {
+                                                        $rec=mysqli_fetch_array($allaccount);
+                                                        ?>
+                                                    <option value="<?php echo $rec['account_no'];?>"><?php echo $rec['account_no'];?></option>
+
+                                                    <?php
+                                                         }
+                                                        }
+                                                    ?>
+
+                                                </select>
+                                                <small class="errorTxt7"></small>
+                                            </div>
+                                        </div>
+
+                                        <div class="col s6 m4">
+                                            <label for="nominee">Nominee *</label>
+                                            <div class="input-field">
+                                                <select id="nominee" name="nominee"  required>
+                                                <?php 
+                                                if ($coutnm==0)
+                                                    {
+                                                        echo "<option >Please Add Nominee</option>";
+                                                    }
+                                                    else{
+                                                       for($i=0;$i<$coutnm;$i++)
+                                                       {
+                                                        $rec=mysqli_fetch_array($allnominee);
+                                                        ?>
+                                                    <option value="<?php echo $rec['nominee_id'];?>"><?php echo $rec['name'];?></option>
+
+                                                    <?php
+                                                         }
+                                                        }
+                                                    ?>
+
+                                                </select>
+                                                <small class="errorTxt7"></small>
+                                            </div>
+                                        </div>
+
+                                        <div class="col s6 m4">
+                                            <label for="amount">Enter Ammount *(Min 25000)</label>
+                                            <div class="input-field">
+                                                <input type="number" name="ammount" min=25000 id="" required>
+                                                <input type="number" id="balance" value="<?php echo $custifo['balance'];?>" hidden>
+                                                <input type="number" name="id" value=<?php echo $id;?> id="" hidden>
+                                                <small class="errorTxt7"></small>
+                                            </div>
+                                        </div>
+
+                                       
+                                        <div class="input-field col s12">
+                                            <?php if(isset($_SESSION['inverr'])){?>
+                                             <p style="text-align: center;color:red"><?php echo $_SESSION['inverr']; ?></p>
+                                             <?php unset($_SESSION['inverr']);} ?>
+                                             <?php if(isset($_SESSION['invsucc'])){?>
+                                             <p style="text-align: center;color:green"><?php echo $_SESSION['invsucc']; ?></p>
+                                             <?php unset($_SESSION['invsucc']);} ?>
+
+                                            <button class="btn waves-effect waves-light right green" type="submit" >Save
+                                                <i class="material-icons right">save</i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+
+                                </form>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 <?php require('../layout/footer.php')?>

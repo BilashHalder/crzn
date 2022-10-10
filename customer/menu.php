@@ -1,6 +1,6 @@
                       <li><a class="dropdown-menu" href="Javascript:void(0)" data-target="DashboardDropdown"><i class="material-icons">dashboard</i><span><span class="dropdown-title" data-i18n="Dashboard">Dashboard</span><i class="material-icons right">keyboard_arrow_down</i></span></a>
                             <ul class="dropdown-content dropdown-horizontal-list" id="DashboardDropdown">
-                                <li data-menu=""><a href=""><span data-i18n="Modern">Dashboard</span></a>
+                                <li data-menu=""><a href="/crzn/customer/dashboard.php"><span data-i18n="Modern">Dashboard</span></a>
                                 </li>
                             </ul>
                         </li>
@@ -16,8 +16,8 @@
                             <ul class="dropdown-content dropdown-horizontal-list" id="AppsDropdown">
                                 <li data-menu=""><a href="payouthistory.php"><span data-i18n="Mail">Payout History</span></a>
                                 </li>
-                                <li data-menu=""><a href="payoutreq.php"><span data-i18n="Chat">Request</span></a>
-                                </li>
+                                <!-- <li data-menu=""><a href="payoutreq.php"><span data-i18n="Chat">Request</span></a>
+                                </li> -->
                             </ul>
                         </li>
                         <li><a class="dropdown-menu" href="Javascript:void(0)" data-target="PageDropdown"><i class="material-icons">content_paste</i><span><span class="dropdown-title" data-i18n="Pages">Nominee</span><i class="material-icons right">keyboard_arrow_down</i></span></a>

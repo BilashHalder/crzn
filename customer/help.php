@@ -14,23 +14,7 @@ require('../layout/header.php');
 <body class="horizontal-layout page-header-light horizontal-menu preload-transitions 2-columns   " data-open="click" data-menu="horizontal-menu" data-col="2-columns">
     <header class="page-topbar" id="header">
         <div class="navbar navbar-fixed">
-            <nav class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-dark gradient-45deg-light-blue-cyan">
-                <div class="nav-wrapper">
-                    <ul class="left">
-                        <li>
-                            <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="index.html"><img src="../assets/images/logo/materialize-logo.png" alt="materialize logo"><span class="logo-text hide-on-med-and-down">Materialize</span></a></h1>
-                        </li>
-                    </ul>
-                    <ul class="navbar-list right">
-                         <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><img src="../assets/images/avatar/avatar-7.png" alt="avatar"><i></i></span></a></li>
-                    </ul>
-                   
-                    <ul class="dropdown-content" id="profile-dropdown">
-                        <li><a class="grey-text text-darken-1" href="user-profile-page.html"><i class="material-icons">person_outline</i> Profile</a></li>
-                        <li><a class="grey-text text-darken-1" href="user-login.html"><i class="material-icons">keyboard_tab</i> Logout</a></li>
-                    </ul>
-                </div> 
-            </nav>
+        <?php require('./topnav.php'); ?>
 
             <nav class="white hide-on-med-and-down" id="horizontal-nav">
                 <div class="nav-wrapper">
@@ -55,8 +39,123 @@ require('../layout/header.php');
 
     <div id="main">
         <div class="row">
-
-        
+            <div class="col s12">
+                <div class="container">
+                    <!-- FAQ -->
+                    <div class="section" id="faq">
+                        <div class="row">
+                            <div class="col s12">
+                                <div id="faq-search" class="card z-depth-0 faq-search-image center-align p-35">
+                                    <div class="card-content">
+                                        <h5>Frequently asked questions.</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq row">
+                            <div class="col s12 m6 l3">
+                                <a class="black-text" href="page-faq-detail.html">
+                                    <div class="card z-depth-0 grey lighten-3 faq-card">
+                                        <div class="card-content center-align">
+                                            <i class="material-icons dp48 orange-text">search</i>
+                                            <h6><b>Invesment </b></h6>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col s12 m6 l3">
+                                <a class="black-text" href="page-faq-detail.html">
+                                    <div class="card z-depth-0 grey lighten-3 faq-card">
+                                        <div class="card-content center-align">
+                                            <i class="material-icons dp48 red-text">chat_bubble_outline</i>
+                                            <h6><b>Payment</b></h6>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col s12 m6 l3">
+                                <a class="black-text" href="page-faq-detail.html">
+                                    <div class="card z-depth-0 grey lighten-3 faq-card">
+                                        <div class="card-content center-align">
+                                            <i class="material-icons dp48 green-text">perm_identity</i>
+                                            <h6><b>Associate</b></h6>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col s12 m6 l3">
+                                <a class="black-text" href="page-faq-detail.html">
+                                    <div class="card z-depth-0 grey lighten-3 faq-card">
+                                        <div class="card-content center-align">
+                                            <i class="material-icons dp48 blue-text">content_copy</i>
+                                            <h6><b>CSP</b></h6>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col s12 m12 l12">
+                                <ul class="collapsible categories-collapsible">
+                                    <li class="active">
+                                        <div class="collapsible-header" tabindex="0">Q: Do memberships include the original PSD files? <i class="material-icons">
+                                                keyboard_arrow_right </i></div>
+                                        <div class="collapsible-body" style="display: block;">
+                                            <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing
+                                                hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined
+                                                chunks as necessary, making this the first true generator on the Internet.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header" tabindex="0">Q: How can I purchase a single theme? <i class="material-icons">
+                                                keyboard_arrow_right </i></div>
+                                        <div class="collapsible-body">
+                                            <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing
+                                                hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined
+                                                chunks as necessary, making this the first true generator on the Internet.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header" tabindex="0">Q: How to I modify the Footer copyright <i class="material-icons">
+                                                keyboard_arrow_right </i></div>
+                                        <div class="collapsible-body">
+                                            <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing
+                                                hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined
+                                                chunks as necessary, making this the first true generator on the Internet.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header" tabindex="0">Q: How do I create a child theme? <i class="material-icons">
+                                                keyboard_arrow_right </i></div>
+                                        <div class="collapsible-body">
+                                            <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing
+                                                hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined
+                                                chunks as necessary, making this the first true generator on the Internet.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header" tabindex="0">Q: Where do i post support query? <i class="material-icons">
+                                                keyboard_arrow_right </i></div>
+                                        <div class="collapsible-body">
+                                            <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing
+                                                hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined
+                                                chunks as necessary, making this the first true generator on the Internet.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header" tabindex="0">Q: New to the WordPress? Lets get started? <i class="material-icons">
+                                                keyboard_arrow_right </i></div>
+                                        <div class="collapsible-body">
+                                            <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing
+                                                hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined
+                                                chunks as necessary, making this the first true generator on the Internet.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-overlay"></div>
+            </div>
         </div>
     </div>
 <?php require('../layout/footer.php')?>

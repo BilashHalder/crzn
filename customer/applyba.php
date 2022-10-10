@@ -5,7 +5,19 @@ session_start();
 if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
 header('location:index.php'); 
 
+require('../config/dbconfig.php');
 require('../layout/header.php');
+
+$id=$_SESSION['id'];
+$sql="SELECT * FROM `customer` WHERE `customer_id`=$id";
+$data=$conn->query($sql);
+$data=mysqli_fetch_array($data);
+
+
+$sql1="SELECT * FROM `request` WHERE `customer_id`=$id AND `request_type`=2 AND `status`=2";
+$ispending=$conn->query($sql1);
+$ispending=mysqli_num_rows($ispending);
+
 
 ?>
 
@@ -14,23 +26,7 @@ require('../layout/header.php');
 <body class="horizontal-layout page-header-light horizontal-menu preload-transitions 2-columns   " data-open="click" data-menu="horizontal-menu" data-col="2-columns">
     <header class="page-topbar" id="header">
         <div class="navbar navbar-fixed">
-            <nav class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-dark gradient-45deg-light-blue-cyan">
-                <div class="nav-wrapper">
-                    <ul class="left">
-                        <li>
-                            <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="index.html"><img src="../assets/images/logo/materialize-logo.png" alt="materialize logo"><span class="logo-text hide-on-med-and-down">Materialize</span></a></h1>
-                        </li>
-                    </ul>
-                    <ul class="navbar-list right">
-                         <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><img src="../assets/images/avatar/avatar-7.png" alt="avatar"><i></i></span></a></li>
-                    </ul>
-                   
-                    <ul class="dropdown-content" id="profile-dropdown">
-                        <li><a class="grey-text text-darken-1" href="user-profile-page.html"><i class="material-icons">person_outline</i> Profile</a></li>
-                        <li><a class="grey-text text-darken-1" href="user-login.html"><i class="material-icons">keyboard_tab</i> Logout</a></li>
-                    </ul>
-                </div> 
-            </nav>
+        <?php require('./topnav.php'); ?>
 
             <nav class="white hide-on-med-and-down" id="horizontal-nav">
                 <div class="nav-wrapper">
@@ -55,8 +51,66 @@ require('../layout/header.php');
 
     <div id="main">
         <div class="row">
-
-        
+            <div class="col s12">
+                <div class="container">
+                    <div class="seaction">
+                        <?php 
+                        
+                        if($ispending>0){
+                            echo "<div class='green-text center mt5'>
+                           <p> Your Application Submitted Successfully.</p>
+                           <p> Please wait our representative contact you.....</p>
+                           
+                           </div>";
+                        }else{
+                            ?>
+<div class="row">
+                            <div class="col s12 m12 l12">
+                                <div id="Form-advance" class="card card card-default scrollspy">
+                                    <div class="card-content">
+                                        <h4 class="card-title center">Apply For Business Assoicate</h4>
+                                        <form action="../services/db/application_req.php" method="post">
+                                            <div class="row">
+                                                <div class="input-field col m12 s12">
+                                                    <input id="first_name01" type="text" value="<?php echo $data['name'];?>"  required>
+                                                    <label for="first_name01">Full Name</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <input id="email5" type="email" value="<?php echo $data['email'];?> " required>
+                                                    <label for="email">Email</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <input id="phone" type="number" value="<?php echo $data['phone'];?>" required>
+                                                    <label for="phone">Contact No</label>
+                                                </div>
+                                            </div>
+                                            <input type="text" name="customer_id" id="" value=<?php echo $data['customer_id'];?> hidden>
+                                            <input type="text" name="req_type" id="" value=2 hidden>
+                                            <div class="row">
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Submit
+                                                            <i class="material-icons right">send</i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+                <div class="content-overlay"></div>
+            </div>
         </div>
     </div>
 <?php require('../layout/footer.php')?>

@@ -94,7 +94,7 @@ $count=mysqli_num_rows($res);
                                                 <td><?php echo $rec['phone']?></td>
                                                 <td><?php echo $rec['email']?></td>
                                                 <td><?php if($rec['status']==1) echo "Active"; else "Blocked";?></td>
-                                                <td> <a href="customerinfo.php?id=<?php echo $rec['customer_id']?>">View </a> </td>
+                                                <td> <a href="customerprofile.php?id=<?php echo $rec['customer_id']?>">View </a> </td>
                                             </tr>
 
                                             <?php

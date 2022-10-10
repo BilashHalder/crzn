@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <?php
-// session_start();
+session_start();
 // if(!(isset($_SESSION['id']) && isset($_SESSION['type'])))
 // header('location:index.php'); 
 
 require('../layout/header.php');
+require('../config/dbconfig.php');
 
 ?>
 
@@ -38,7 +39,7 @@ require('../layout/header.php');
                     </ul>
                 </div>
             </nav>
-            
+
         </div>
     </header>
 
@@ -54,87 +55,131 @@ require('../layout/header.php');
 
     <div id="main">
         <div class="row">
-            <div class="col s12">
-                        <div class="card">
-                        <div class="card-content">
-                        <h4 class="card-title center">Manage Holidays</h4>
-                               
+            <div class="col s12 m12 l12">
+                <div id="responsive-table" class="card card card-default scrollspy">
+                    <div class="card-content">
+                        <h4 class="card-title center">Manage Holidays Information</h4>
                         <div class="row">
-                                    <div class="col s12 m4 l6">
-                                    <div class="card-content">
-                                        <div class="card-title">
-                                            <div class="row">
-                                                <div class="col s12 m6 l10">
-                                                    <h4 class="card-title center">Add New Holidays</h4>
-                                                </div>
-                                                <div class="col s12 m6 l2">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="html-view-validations">
-                                            <form class="formValidate0" id="formValidate0" method="get">
-                                                <div class="row">
-                                                    <div class="input-field col s12 m12">
-                                                        <label for="title" class="">Select Holiday *</label>
-                                                        <input class="validate" required="" id="title" name="title" type="date">
-                                                    </div>
-                                                    <div class="input-field col s12">
-                                                        <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Save
-                                                            <i class="material-icons right">save</i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <div class="col s12 m8 l6">
-                                    <div id="responsive-table" class="card card card-default scrollspy">
-                                    <div class="card-content">
-                                        <h4 class="card-title center"> Designation List</h4>
+
+                            <?php
+                            if (isset($_GET['id'])) {
+                                $id = $_GET['id'];
+                                $qur = "SELECT * FROM `holiday` WHERE `id`=$id";
+                                $res = $conn->query($qur);
+                                $res = mysqli_fetch_array($res);
+                            ?>
+
+
+
+                                <div class="col s12 m6">
+                                    <h5 class="card-title center">Update Holidays Information</h5>
+
+
+                                    <form action="../services/db/updateholiday.php" method="post">
+
                                         <div class="row">
-                                            <div class="col s12">
+
+                                            <div class="input-field col m12">
+                                                <input type="text" id="fn" name="title" min=0 value='<?php echo $res['title']; ?>' required>
+                                                <label for="fn" class="">Title</label>
                                             </div>
-                                            <div class="col s12">
-                                                <table class="responsive-table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th data-field="id">Name</th>
-                                                            <th data-field="name">Item Name</th>
-                                                            <th data-field="price">Item Price</th>
-                                                            <th data-field="total">Total</th>
-                                                            <th data-field="status">Status</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Alvin</td>
-                                                            <td>Eclair</td>
-                                                            <td>$0.87</td>
-                                                            <td>$1.87</td>
-                                                            <td>Yes</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Alan</td>
-                                                            <td>Jellybean</td>
-                                                            <td>$3.76</td>
-                                                            <td>$10.87</td>
-                                                            <td>No</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                            <div class="input-field col m12">
+                                                <input type="date" id="h_date" name="h_date" min=0 value='<?php echo $res['h_date']; ?>' required>
+                                                <label for="h_date" class="">Holiday Date</label>
                                             </div>
                                         </div>
-                                    </div>
+                                        <input type="number" id="id" name="id" value=<?php echo $res['id']; ?> hidden>
+                                        <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Save
+                                            <i class="material-icons right">save</i>
+                                        </button>
+                                    </form>
+
+
                                 </div>
+
+                            <?php
+                            } else {
+
+                            ?>
+
+
+                                <div class="col s12 m6">
+                                    <h5 class="card-title center">Add New Holiday</h5>
+
+
+                                    <form action="../services/db/addholiday.php" method="post">
+
+                                    <div class="row">
+                                    <div class="input-field col m12">
+                                                <input type="text" id="fn" name="title" min=0  required>
+                                                <label for="fn" class="">Title</label>
+                                            </div>
+                                            <div class="input-field col m12">
+                                                <input type="date" id="h_date" name="h_date"  required>
+                                                <label for="h_date" class="">Holiday Date</label>
+                                            </div>
+
+
+<button class="btn cyan waves-effect waves-light right" type="submit" name="action">Save
+<i class="material-icons right">save</i>
+</button>
+
                                     </div>
+                                    </form>
+
+
                                 </div>
-                           
+
+
+                            <?php
+                            }
+                            ?>
+
+
+
+
+
+                            <div class="col s12 m6">
+                                <h5 class="card-title center">Holiday List</h5>
+                                <table class="bordered">
+                                    <thead>
+                                        <tr>
+                                            
+                                            <th data-field="name">Title</th>
+                                            <th data-field="id">Date</th>
+                                            <th>Edit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $qur = "SELECT * FROM `holiday` WHERE `h_date` >= CURRENT_DATE()";
+                                        $allholiday = $conn->query($qur);
+
+                                        for ($i = 0; $i < mysqli_num_rows($allholiday); $i++) {
+                                            $holiday = mysqli_fetch_array($allholiday);
+                                        ?>
+
+                                            <tr>
+                                                <td><?php echo $holiday['title']; ?></td>
+                                                <td><?php echo $holiday['h_date']; ?></td>
+                                                <td><a type="submit" name="action" href="?id=<?php echo  $holiday['id']; ?>"> <i class="material-icons right">edit</i></a></td>
+                                                
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+
+                            
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
     <?php require('../layout/footer.php') ?>
 </body>
+
 </html>

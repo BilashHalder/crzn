@@ -11,9 +11,11 @@ $dob=$_POST['dob'];
 $doj=$_POST['doj'];
 $report_to=$_POST['report_to'];
 $designation=$_POST['designation'];
+$leave_id=$_POST['leave_id'];
+
 $pass=md5($_POST['pass']);
 
-  $sqlfind="SELECT * FROM `associate` WHERE `phone`='$phone' OR `email`='$email'";
+  $sqlfind="SELECT * FROM `employee` WHERE `phone`='$phone' OR `email`='$email'";
   $result=$conn->query($sqlfind);
   if(mysqli_num_rows($result)>0){
     $_SESSION['emperr']="Email Or Phone Number Already Registerd";
@@ -35,9 +37,9 @@ $sql="INSERT INTO `employee`( `name`, `gender`, `email`, `phone`, `pass`, `image
 
 if ($conn->query($sql) === TRUE) {
     $last_id = $conn->insert_id;
-$sql2="INSERT INTO `employee_info`(`employee_id`, `designation_id`, `salary_id`, `dob`, `report_to`, `joining_date`) VALUES ($last_id,$designation,$salary_id,'$dob',$report_to,'$doj')";
+$sql2="INSERT INTO `employee_info`(`employee_id`, `designation_id`, `salary_id`,`leave_id`,`dob`, `report_to`, `joining_date`) VALUES ($last_id,$designation,$salary_id,$leave_id,'$dob',$report_to,'$doj')";
 if ($conn->query($sql2) === TRUE) {
-    header('location:../../admin/empall.php');
+   header('location:../../admin/empall.php');
 }
 else {
     echo "Error: " . $sql . "<br>" . $conn->error;

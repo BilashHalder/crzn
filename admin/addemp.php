@@ -11,13 +11,17 @@ require('../layout/header.php');
 $sqlemp="SELECT * FROM employee where status=1";
 $sqldesg="SELECT * FROM designation";
 $sqlsal="SELECT * FROM salary";
+$sqlleave="SELECT * FROM `leave`";
 $allsalary = $conn->query($sqlsal);
 $alldesg=$conn->query($sqldesg);
 $allemp=$conn->query($sqlemp);
+$alleave=$conn->query($sqlleave);
 function calculateSalary($salary){
     return(($salary['basic']+$salary['hra']+$salary['conveyance']+$salary['medical']+$salary['special'])-($salary['pf']+$salary['insurance']+$salary['tax']));
 }
-
+function totalLeave($leave){
+    return(($leave['annual']+$leave['casual']+$leave['sick']+$leave['maternity']+$leave['bereavement']+$leave['others']));
+}
 
 
 ?>
@@ -91,7 +95,7 @@ function calculateSalary($salary){
                                            <input id="email" type="email" name="email" data-error=".errorTxt3" >
                                            <small class="errorTxt3"></small>
                                        </div>
-                                       <div class="col s6 m3">
+                                       <div class="col s6 m2">
                                            <label for="gender">Gender *</label>
                                            <div class="input-field">
                                                <select class="error" id="gender" name="gender" data-error=".errorTxt7" >
@@ -105,7 +109,7 @@ function calculateSalary($salary){
                                        </div>
 
 
-                                       <div class="col s6 m3">
+                                       <div class="col s6 m2">
                                            <label for="salary">Salary *</label>
                                            <div class="input-field">
                                                <select class="error" id="salary" name="salary" data-error=".errorTxt7" >
@@ -125,6 +129,33 @@ function calculateSalary($salary){
                                                ?>    
                                                    
                                                    <option value="<?php echo $temp['salary_id'];?>"><?php echo calculateSalary($temp);?></option>
+                                                   <?php
+                                               } }?>
+                                               </select>
+                                               <small class="errorTxt7"></small>
+                                           </div>
+                                       </div>
+
+                                       <div class="col s6 m2">
+                                           <label for="leave_id">Leave *</label>
+                                           <div class="input-field">
+                                               <select class="error" id="leave_id" name="leave_id" data-error=".errorTxt7" >
+                                               <?php 
+                                               if(mysqli_num_rows($alleave)==0)
+                                               {
+                                                   ?>
+                                                   <option>Please Add Leave</option>
+                                                   <?php
+                                               }
+                                               else{
+                                                   ?>
+                                                   <option>Select</option>
+                                                   <?php
+                                                   for($i=0;$i<mysqli_num_rows($alleave);$i++){
+                                                       $temp=mysqli_fetch_array($alleave)
+                                               ?>    
+                                                   
+                                                   <option value="<?php echo $temp['leave_id'];?>"><?php echo totalLeave($temp);?></option>
                                                    <?php
                                                } }?>
                                                </select>
@@ -187,6 +218,8 @@ function calculateSalary($salary){
                                                <small class="errorTxt7"></small>
                                            </div>
                                        </div>
+
+                                       
                                        <div class="input-field col s6 m4">
                                            <label for="dob">Date Of Birth *</label>
                                            <input id="dob" type="date" name="dob" data-error=".errorTxt3" >
@@ -246,6 +279,8 @@ function calculateSalary($salary){
 
 
     <?php require('../layout/footer.php') ?>
+
+   
 </body>
 </html>
 

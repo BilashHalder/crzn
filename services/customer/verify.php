@@ -22,7 +22,7 @@ require('../../config/dbconfig.php');
             }
         else 
             {
-                $_SESSION['id']=$rec['employee_id'];
+                $_SESSION['id']=$rec['customer_id'];
                 $_SESSION['type']= 'emp';
                 header('location:../../customer/dashboard.php');
 
