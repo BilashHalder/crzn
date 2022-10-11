@@ -8,9 +8,9 @@ if (!(isset($_SESSION['id']) && isset($_SESSION['type'])))
 require('../layout/header.php');
 
 $id=$_SESSION['id'];
-$sql="SELECT * FROM `offline_transaction` WHERE `customer_id`=$id AND `status`!=2 AND customer_type=2";
-$all=$conn->query($sql);
-$count=mysqli_num_rows($all);
+$sql="SELECT * FROM `nominee` WHERE `user_id`=$id AND `user_type`=2";
+$allsal=$conn->query($sql);
+$count=mysqli_num_rows($allsal);
 ?>
 
 
@@ -18,7 +18,7 @@ $count=mysqli_num_rows($all);
 <body class="horizontal-layout page-header-light horizontal-menu preload-transitions 2-columns   " data-open="click" data-menu="horizontal-menu" data-col="2-columns">
     <header class="page-topbar" id="header">
         <div class="navbar navbar-fixed">
-            <?php require('./topnav.php'); ?>
+        <?php require('./topnav.php'); ?>
 
             <nav class="white hide-on-med-and-down" id="horizontal-nav">
                 <div class="nav-wrapper">
@@ -45,10 +45,11 @@ $count=mysqli_num_rows($all);
             <div class="col s12 m12 l12">
                 <div id="responsive-table" class="card card card-default scrollspy">
                     <div class="card-content">
+                        <h4 class="card-title center">Manage Nominee Information</h4>
                         <div class="row">
 
                             <?php
-                            if ($count>1000000000) {
+                            if ($count>2) {
 
                             ?>
 
@@ -62,32 +63,23 @@ $count=mysqli_num_rows($all);
 
 
                                 <div class="col s12 m6">
-                                    <h5 class="card-title center">Add New Payment Information</h5>
+                                    <h5 class="card-title center">Add New Nominee</h5>
 
 
-                                    <form action="../services/associate/addofline.php" enctype="multipart/form-data"  method="POST" >
+                                    <form action="../services/associate/addnominee.php" method="post">
 
                                     <div class="row">
                                     <div class="input-field col m12">
-                                                <input type="number" id="ammount" name="ammount"  min=0 required>
-                                                <label for="ammount" class="">Payment Ammount</label>
+                                                <input type="text" id="name" name="name"  required>
+                                                <label for="name" class="">Nominee Name</label>
                                             </div>
                                             <div class="input-field col m12">
-                                                <input type="text" id="t_id" name="transaction_id"  required>
-                                                <label for="t_id" class="">Transaction Id</label>
+                                                <input type="date" id="dob" name="dob"  required>
+                                                <label for="dob" class="">Date Of Birth</label>
                                             </div>
-                                            <div class="col m6 s6 file-field input-field">
-                                                    <div class="btn float-right">
-                                                        <span>Transaction Recipt</span>
-                                                        <input type="file" name="image"  accept="image/*">
-                                                    </div>
-                                                    <div class="file-path-wrapper">
-                                                        <input class="file-path validate" type="text">
-                                                    </div>
-                                                </div>
 
                                             <input type="text" id="h_date" name="user_id"  value=<?php echo $id;?> hidden>
-                                            <input type="text" id="h_date" name="user_type"  value=1 hidden>
+                                            <input type="text" id="h_date" name="user_type"  value=2 hidden>
 
 <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Save
 <i class="material-icons right">save</i>
@@ -113,30 +105,20 @@ $count=mysqli_num_rows($all);
                                     <thead>
                                         <tr>
                                             
-                                            <th data-field="name">Ammount</th>
-                                            <th data-field="id">Transaction Id</th>
-                                            <th>Status</th>
+                                            <th data-field="name">Full Name</th>
+                                            <th data-field="id">Date Of Birth</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
 
-                                        for ($i = 0; $i < mysqli_num_rows($all); $i++) {
-                                            $sal = mysqli_fetch_array($all);
+                                        for ($i = 0; $i < mysqli_num_rows($allsal); $i++) {
+                                            $sal = mysqli_fetch_array($allsal);
                                         ?>
 
                                             <tr>
-                                                <td><?php echo $sal['amount']; ?></td>
-                                                <td><?php echo $sal['transaction_id']; ?></td>
-                                                <td><?php if ($sal['status']==0) echo "Pending";
-                                              else  if ($sal['status']==1) echo "Accepted";
-                                              else  if ($sal['status']==3) echo "Rejected";
-
-                                              else echo "Used";
-
-                                                
-                                                
-                                                ?></td>
+                                                <td><?php echo $sal['name']; ?></td>
+                                                <td><?php echo $sal['dob']; ?></td>
                                                 
                                                 
                                             </tr>

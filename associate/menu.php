@@ -1,6 +1,6 @@
                       <li><a class="dropdown-menu" href="Javascript:void(0)" data-target="DashboardDropdown"><i class="material-icons">dashboard</i><span><span class="dropdown-title" data-i18n="Dashboard">Dashboard</span><i class="material-icons right">keyboard_arrow_down</i></span></a>
                             <ul class="dropdown-content dropdown-horizontal-list" id="DashboardDropdown">
-                                <li data-menu=""><a href=""><span data-i18n="Modern">Dashboard</span></a>
+                                <li data-menu=""><a href="/crzn/associate/dashboard.php"><span data-i18n="Modern">Dashboard</span></a>
                                 </li>
                             </ul>
                         </li>
@@ -20,6 +20,19 @@
                                 </li>
                             </ul>
                         </li>
+                        <li><a class="dropdown-menu" href="Javascript:void(0)" data-target="nomineeDropdown"><i class="material-icons">content_paste</i><span><span class="dropdown-title" data-i18n="Pages">Nominee</span><i class="material-icons right">keyboard_arrow_down</i></span></a>
+                            <ul class="dropdown-content dropdown-horizontal-list" id="nomineeDropdown">
+                                <li data-menu=""><a href="nominee.php"><span data-i18n="Contact">Manage Nominee</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a class="dropdown-menu" href="Javascript:void(0)" data-target="bankDropdown"><i class="material-icons">content_paste</i><span><span class="dropdown-title" data-i18n="Pages">Bank Account</span><i class="material-icons right">keyboard_arrow_down</i></span></a>
+                            <ul class="dropdown-content dropdown-horizontal-list" id="bankDropdown">
+                                <li data-menu=""><a href="accounts.php"><span data-i18n="Contact">Manage Accounts</span></a>
+                                </li>
+                            </ul>
+                        </li>
+
                         <li><a class="dropdown-menu" href="Javascript:void(0)" data-target="PageDropdown"><i class="material-icons">content_paste</i><span><span class="dropdown-title" data-i18n="Pages">Offline Payment</span><i class="material-icons right">keyboard_arrow_down</i></span></a>
                             <ul class="dropdown-content dropdown-horizontal-list" id="PageDropdown">
                                 <li data-menu=""><a href="addoffpayment.php"><span data-i18n="Contact">Add New</span></a>
@@ -31,9 +44,7 @@
 
                         
                         <li><a class="dropdown-menu" href="Javascript:void(0)" data-target="Cards"><i class="material-icons">cast</i><span><span class="dropdown-title" data-i18n="Cards">Payout</span><i class="material-icons right">keyboard_arrow_down</i></span></a>
-                            <ul class="dropdown-content dropdown-horizontal-list" id="Cards">  
-                            <li data-menu=""><a href="payoutrequest.php"><span data-i18n="Cards Extended">Payout Request</span></a>
-                                </li>
+                            <ul class="dropdown-content dropdown-horizontal-list" id="Cards"> 
                                 <li data-menu=""><a href="payouthistory.php"><span data-i18n="Cards Advance">Payout History</span></a>
                                 </li>
                             </ul>

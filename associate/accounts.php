@@ -8,9 +8,9 @@ if (!(isset($_SESSION['id']) && isset($_SESSION['type'])))
 require('../layout/header.php');
 
 $id=$_SESSION['id'];
-$sql="SELECT * FROM `offline_transaction` WHERE `customer_id`=$id AND `status`!=2 AND customer_type=2";
-$all=$conn->query($sql);
-$count=mysqli_num_rows($all);
+$sql="SELECT * FROM `bank_account` WHERE `user_id`=$id AND `user_type`=2";
+$allsal=$conn->query($sql);
+$count=mysqli_num_rows($allsal);
 ?>
 
 
@@ -18,7 +18,7 @@ $count=mysqli_num_rows($all);
 <body class="horizontal-layout page-header-light horizontal-menu preload-transitions 2-columns   " data-open="click" data-menu="horizontal-menu" data-col="2-columns">
     <header class="page-topbar" id="header">
         <div class="navbar navbar-fixed">
-            <?php require('./topnav.php'); ?>
+        <?php require('./topnav.php'); ?>
 
             <nav class="white hide-on-med-and-down" id="horizontal-nav">
                 <div class="nav-wrapper">
@@ -45,10 +45,11 @@ $count=mysqli_num_rows($all);
             <div class="col s12 m12 l12">
                 <div id="responsive-table" class="card card card-default scrollspy">
                     <div class="card-content">
+                        <h4 class="card-title center">Manage Bank Accounts</h4>
                         <div class="row">
 
                             <?php
-                            if ($count>1000000000) {
+                            if ($count>2) {
 
                             ?>
 
@@ -62,32 +63,27 @@ $count=mysqli_num_rows($all);
 
 
                                 <div class="col s12 m6">
-                                    <h5 class="card-title center">Add New Payment Information</h5>
+                                    <h5 class="card-title center">Add New Bank Account</h5>
 
 
-                                    <form action="../services/associate/addofline.php" enctype="multipart/form-data"  method="POST" >
+                                    <form action="../services/associate/addaccount.php" method="post">
 
                                     <div class="row">
                                     <div class="input-field col m12">
-                                                <input type="number" id="ammount" name="ammount"  min=0 required>
-                                                <label for="ammount" class="">Payment Ammount</label>
+                                                <input type="password" id="fn" name="account_no"  required>
+                                                <label for="fn" class="">Account No</label>
                                             </div>
                                             <div class="input-field col m12">
-                                                <input type="text" id="t_id" name="transaction_id"  required>
-                                                <label for="t_id" class="">Transaction Id</label>
+                                                <input type="text" id="c_account" name="c_account"  required>
+                                                <label for="c_account" class="">Confirm Account Number</label>
                                             </div>
-                                            <div class="col m6 s6 file-field input-field">
-                                                    <div class="btn float-right">
-                                                        <span>Transaction Recipt</span>
-                                                        <input type="file" name="image"  accept="image/*">
-                                                    </div>
-                                                    <div class="file-path-wrapper">
-                                                        <input class="file-path validate" type="text">
-                                                    </div>
-                                                </div>
+                                            <div class="input-field col m12">
+                                                <input type="text" id="ifsc_code" name="ifsc_code"  required>
+                                                <label for="ifsc_code" class="">IFSC Code</label>
+                                            </div>
 
                                             <input type="text" id="h_date" name="user_id"  value=<?php echo $id;?> hidden>
-                                            <input type="text" id="h_date" name="user_type"  value=1 hidden>
+                                            <input type="text" id="h_date" name="user_type"  value=2 hidden>
 
 <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Save
 <i class="material-icons right">save</i>
@@ -113,30 +109,22 @@ $count=mysqli_num_rows($all);
                                     <thead>
                                         <tr>
                                             
-                                            <th data-field="name">Ammount</th>
-                                            <th data-field="id">Transaction Id</th>
+                                            <th data-field="name">Account No</th>
+                                            <th data-field="id">Ifsc Code</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
 
-                                        for ($i = 0; $i < mysqli_num_rows($all); $i++) {
-                                            $sal = mysqli_fetch_array($all);
+                                        for ($i = 0; $i < mysqli_num_rows($allsal); $i++) {
+                                            $sal = mysqli_fetch_array($allsal);
                                         ?>
 
                                             <tr>
-                                                <td><?php echo $sal['amount']; ?></td>
-                                                <td><?php echo $sal['transaction_id']; ?></td>
-                                                <td><?php if ($sal['status']==0) echo "Pending";
-                                              else  if ($sal['status']==1) echo "Accepted";
-                                              else  if ($sal['status']==3) echo "Rejected";
-
-                                              else echo "Used";
-
-                                                
-                                                
-                                                ?></td>
+                                                <td><?php echo $sal['account_no']; ?></td>
+                                                <td><?php echo $sal['ifsc_code']; ?></td>
+                                                <td><?php echo $sal['status']; ?></td>
                                                 
                                                 
                                             </tr>

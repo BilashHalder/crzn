@@ -13,7 +13,7 @@ $urec=mysqli_fetch_array($ures);
                 <div class="nav-wrapper">
                     <ul class="left">
                         <li>
-                            <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="/crzn/customer/dashboard.php"><img src="../assets/images/logo/materialize-logo.png" alt="creazione logo"><span class="logo-text hide-on-med-and-down">Creazione CRM</span></a></h1>
+                            <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="/crzn/associate/dashboard.php"><img src="../assets/images/logo/materialize-logo.png" alt="creazione logo"><span class="logo-text hide-on-med-and-down">Creazione CRM</span></a></h1>
                         </li>
                     </ul>
                     <ul class="navbar-list right">
