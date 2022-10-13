@@ -1,4 +1,4 @@
-<li><a href=""><i class="material-icons">dashboard</i><span><span class="dropdown-title" data-i18n="Dashboard">Dashboard</span></span></a>
+<li><a href="/crzn/employee/dashboard.php"><i class="material-icons">dashboard</i><span><span class="dropdown-title" data-i18n="Dashboard">Dashboard</span></span></a>
     <ul class="dropdown-content dropdown-horizontal-list" id="DashboardDropdown">
 
     </ul>

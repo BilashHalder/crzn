@@ -1,6 +1,6 @@
-                      <li><a class="dropdown-menu" href="/" data-target="DashboardDropdownm"><i class="material-icons">dashboard</i><span><span class="dropdown-title" data-i18n="Dashboard">Dashboard</span><i class="material-icons right">keyboard_arrow_down</i></span></a>
+                      <li><a class="dropdown-menu" href="/crzn/admin" data-target="DashboardDropdownm"><i class="material-icons">dashboard</i><span><span class="dropdown-title" data-i18n="Dashboard">Dashboard</span><i class="material-icons right">keyboard_arrow_down</i></span></a>
                             <ul class="dropdown-content dropdown-horizontal-list" id="DashboardDropdownm">
-                                <li data-menu=""><a href=""><span data-i18n="Modern">Dashboard</span></a>
+                                <li data-menu=""><a href="/crzn/admin"><span data-i18n="Modern">Dashboard</span></a>
                                 </li>
                             </ul>
                         </li>
@@ -29,14 +29,14 @@
                             </ul>
                         </li>
 
-                        <li><a class="dropdown-menu" href="Javascript:void(0)" data-target="Cardsm"><i class="material-icons">cast</i><span><span class="dropdown-title" data-i18n="Cards">Payout</span><i class="material-icons right">keyboard_arrow_down</i></span></a>
+                        <!-- <li><a class="dropdown-menu" href="Javascript:void(0)" data-target="Cardsm"><i class="material-icons">cast</i><span><span class="dropdown-title" data-i18n="Cards">Payout</span><i class="material-icons right">keyboard_arrow_down</i></span></a>
                             <ul class="dropdown-content dropdown-horizontal-list" id="Cardsm">
                                 <li data-menu=""><a href="payoutreq.php"><span data-i18n="Cards">Payout Request</span></a>
                                 </li>
                                 <li data-menu=""><a href="cpayouts.php"><span data-i18n="Cards Advance">All Payouts</span></a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
 
                         
                         <li><a class="dropdown-menu" href="Javascript:void(0)" data-target="ChartDropdownm"><i class="material-icons">pie_chart_outlined</i><span><span class="dropdown-title" data-i18n="Chart">Invesments</span><i class="material-icons right">keyboard_arrow_down</i></span></a>
@@ -44,6 +44,9 @@
                                 <li data-menu=""><a href="withdrawalinvesments.php"><span data-i18n="ChartJS">Withdrawal Request</span></a>
                                 </li>
                                 <li data-menu=""><a href="approveinvesments.php"><span data-i18n="Chartist">Approve</span></a>
+                                </li>
+                                
+                                <li data-menu=""><a href="allinvesments.php"><span data-i18n="Chat">View All</span></a>
                                 </li>
                             </ul>
                         </li>

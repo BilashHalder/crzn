@@ -10,11 +10,12 @@ require('../../config/dbconfig.php');
     if($norec!=1)
     {
         $_SESSION['logerr']="Invalid User";
-        header('location:../../employee/');
+        header('location:../../admin/');
 
     }
     else{
-        if($rec['pass']!==md5($pass))
+        echo $norec;
+        if($rec['pass']!=md5($pass))
             {
                 $_SESSION['logerr']="Invalid User Credentials";
                 $_SESSION['uname']= $uname;
@@ -22,8 +23,8 @@ require('../../config/dbconfig.php');
             }
         else 
             {
-                $_SESSION['id']=$rec['admin_id'];
-                $_SESSION['type']= 'admin';
+                $_SESSION['id']=$rec['id'];
+                $_SESSION['admin']= true;
                 header('location:../../admin/dashboard.php');
 
             }
