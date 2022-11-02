@@ -1,0 +1,159 @@
+import axios from 'axios';
+import { React, useState, useEffect } from 'react';
+import DataTable from 'react-data-table-component';
+import Image from 'next/image';
+import EditIcon from '@mui/icons-material/Edit';
+import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
+import Grid2 from '@mui/material/Unstable_Grid2';
+import DataTableExtensions from "react-data-table-component-extensions";
+
+import { FormControl,InputLabel ,Select,MenuItem  } from '@mui/material';
+
+const style = {
+    position: 'absolute',
+    top: '40%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '80%',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
+
+
+
+export default function Table() {
+
+    const [open, setOpen] = useState(false);
+    const [editData, seteditData] = useState(null);
+    const handleOpen = (data) => {
+        setOpen(true);
+        console.log(editData)
+    }
+
+    const handleClose = () => setOpen(false);
+
+    const [data, setData] = useState([]);
+    const getData = async () => {
+        try {
+          const result = await axios.get('https://reqres.in/api/users')
+          console.log(result.data.data);
+          setData(result.data.data);
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
+      useEffect(() => {
+        getData();
+      }, [])
+
+       
+
+  const col=[{
+    name: 'Id',
+    selector: row => row.id,
+    sortable:true
+},
+{
+    name: 'Name',
+    selector: row => row.first_name,
+    sortable:true
+},
+{
+    name: 'Email',
+    selector: row => row.email,
+    sortable:true
+},
+{
+    name: 'Image',
+    selector: row => <Image src={row.avatar} height={40} width={40} alt={row.first_name}/>,
+},
+{
+    name: '',
+    selector: row =>  <IconButton aria-label="delete" color="primary" onClick={
+        ()=>{
+        seteditData(row);
+        handleOpen(row);
+    }
+    }
+        >
+    <EditIcon />
+  </IconButton>,
+}
+
+]
+
+
+
+
+
+
+  return (
+    <div>
+
+<DataTableExtensions exportHeaders columns={col} data={dataTemp}> <DataTable  columns={col}
+            data={data} 
+            pagination
+            highlightOnHover
+            responsive
+
+            />  </DataTableExtensions>
+       
+
+            
+              <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}
+        component="form"
+        noValidate
+        autoComplete="off"
+
+        >
+<h3 >Edit User Information</h3>
+
+<Grid2 container spacing={2}>
+  <Grid2 xs={4}>
+  <TextField id="uid" label="User Id" variant="standard" fullWidth disabled value={editData?editData.id:''}/>
+  </Grid2>
+  <Grid2 xs={4}>
+  <TextField id="fname" label="Full Name" variant="standard" fullWidth value={editData?editData.first_name:''}/>
+  </Grid2>
+  <Grid2 xs={4}>
+  <TextField id="email" label="Email" variant="standard" type={'email'} fullWidth value={editData?editData.email:''}/>
+  </Grid2>
+  <Grid2 xs={4}>
+  <FormControl fullWidth>
+  <InputLabel id="demo-simple-select-label">Age</InputLabel>
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    variant="standard"
+  >
+    <MenuItem value={10}>Ten</MenuItem>
+    <MenuItem value={20}>Twenty</MenuItem>
+    <MenuItem value={30}>Thirty</MenuItem>
+  </Select>
+</FormControl>
+  </Grid2>
+  <Grid2 xs={4}>
+  <TextField id="st" label="Standard" variant="standard" fullWidth />
+  </Grid2>
+</Grid2>
+
+            <p></p>
+        </Box>
+      </Modal>
+
+    </div>
+  )
+}
